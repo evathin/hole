@@ -1,0 +1,55 @@
+hole.pde > lines of circles
+
+// the codes starts here:
+
+int xabstand = 24;   
+int w;              
+float big = xabstand-1 ;
+float beta = 0;  
+float amplitude = 75; 
+float wiederholung = 50;  
+float dimens;  
+float[] ywertes;  
+
+void setup() 
+{
+  size(600, 400); 
+  w = width+16; 
+  dimens = (HALF_PI / wiederholung) * xabstand;
+  ywertes = new float[w/xabstand];
+}
+
+void draw() 
+{
+
+  background(190, 210, 210); //Hintergrundfarbe
+  calcWave();
+  renderWave();
+}
+
+void calcWave() 
+{ 
+  beta += (0.01*(0.009*mouseX)); //Schnelligkeit der Wellenbewegung  
+  float x = beta;
+
+  for (int i = 0; i < ywertes.length; i++)
+    {ywertes[i] = sin(x)*amplitude;
+    x+=dimens;
+  }
+}
+
+void renderWave() 
+{
+  noStroke(); //Outline der Kreise: stroke (250,100,0)
+   fill(255,250,250, 500); //Farbe der Kreise, vierte Zahl gibt alpha-Wert an = Transparency
+  
+
+  for (int x = 0; x < ywertes.length; x++) {
+  for (float zz=big; zz >=0.0 ; zz-=(0.9))
+  {
+  ellipse((zz*xabstand), width/3+ywertes[x], zz, zz);     
+  }     
+  }
+}
+
+
